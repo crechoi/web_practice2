@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Jinja Test Page</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    Jinja Test : {{title}}<hr>
+    {{"<strong>safe</strong>" | safe}}
+    <hr>
+    {{"<strong>striptags</strong>" | striptags}}
+    <hr>
+    {{"<strong>escape</strong>" | escape}}
+    <pre>ttt 한글 
+        {%-if True-%}
+            TTT
+        {%- endif -%}qqq
+
+    {%raw%}
+    {%if True%}
+    TTT
+    {%endif%}
+    {%endraw%}
+    
+    <hr>
+    NAVVVVVVVV
+    <ul>
+        {%for nav in navs recursive%}
+            <li>
+                <a href="{{nav.url|e}}">{{nav.title}} - {{loop.depth}}</a>
+                {%-if nav.children-%}
+                    <ul>
+                        {{loop(nav.children)}}
+                    </ul>
+                {%- endif %}
+            </li>
+        {%endfor%}
+    </ul>
+
+    <hr>
+    </pre>
+    {%for list in lst%}
+        <li class="{{loop.cycle('aa','bb')}}">{{list[0]}} : {{list[1]}} - {{loop.index}}</li>
+    {%endfor%}
+    <hr>
+    {%for name, song in lst%}
+        <li>{{name}} : {{song}} - {{loop.revindex}}</li>
+    {%endfor%}
+    <hr>
+    {%for name, song in lst%}
+        <li>{{name}} : {{song}} - {{loop.first}}</li>
+    {%endfor%}
+    <hr>
+    {%for name, song in lst%}
+        <li>{{name}} : {{song}} - {{loop.depth}}</li>
+    {%endfor%}
+</body>
+</html>
